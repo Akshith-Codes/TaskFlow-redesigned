@@ -37,6 +37,16 @@ function Dashboard() {
     } catch (err) { alert(err.response?.data?.message || "Failed to accept invite"); }
   }
 
+  async function declineInvite(boardId) {
+    try {
+      await API.delete(`/boards/${boardId}/invite`);
+      fetchInvites();
+    } catch {
+      // Gracefully remove from UI even if backend route doesn't exist yet
+      setInvites(prev => prev.filter(b => b._id !== boardId));
+    }
+  }
+
   async function createBoard(e) {
     e.preventDefault();
     if (!boardName.trim()) return;
@@ -114,12 +124,20 @@ function Dashboard() {
                     <p style={{ fontSize: "14px", fontWeight: 600, color: "var(--text-primary)" }}>{board.title}</p>
                     <p style={{ fontSize: "12px", color: "var(--text-muted)", marginTop: "2px" }}>Invited by {board.owner?.name}</p>
                   </div>
-                  <button onClick={() => acceptInvite(board._id)}
-                    style={{ background: "transparent", border: "1px solid var(--green)", color: "var(--green)", borderRadius: "6px", padding: "6px 16px", fontSize: "12px", fontWeight: 600, letterSpacing: "0.5px" }}
-                    onMouseEnter={e => { e.currentTarget.style.background = "rgba(68,221,136,0.1)"; }}
-                    onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
-                    ACCEPT
-                  </button>
+                  <div style={{ display: "flex", gap: "8px" }}>
+                    <button onClick={() => acceptInvite(board._id)}
+                      style={{ background: "transparent", border: "1px solid var(--green)", color: "var(--green)", borderRadius: "6px", padding: "6px 16px", fontSize: "12px", fontWeight: 600, letterSpacing: "0.5px" }}
+                      onMouseEnter={e => { e.currentTarget.style.background = "rgba(68,221,136,0.1)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "transparent"; }}>
+                      ACCEPT
+                    </button>
+                    <button onClick={() => declineInvite(board._id)}
+                      style={{ background: "transparent", border: "1px solid var(--border)", color: "var(--text-muted)", borderRadius: "6px", padding: "6px 16px", fontSize: "12px", fontWeight: 600, letterSpacing: "0.5px" }}
+                      onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--red)"; e.currentTarget.style.color = "var(--red)"; }}
+                      onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--text-muted)"; }}>
+                      DECLINE
+                    </button>
+                  </div>
                 </div>
               ))}
             </div>

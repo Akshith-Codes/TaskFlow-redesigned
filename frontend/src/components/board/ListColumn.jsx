@@ -8,7 +8,7 @@ const PRIORITY_COLORS = {
   high: { color: "#ff4444", bg: "rgba(255,68,68,0.08)", border: "rgba(255,68,68,0.25)" },
 };
 
-function ListColumn({ list, handleDrop, handleDragStart, changeStatus, deleteCard, deleteList, updateInput, addCard, getCardColor, getCircleStyle }) {
+function ListColumn({ list, handleDrop, handleDragStart, changeStatus, deleteCard, deleteList, updateInput, addCard, getCardColor, getCircleStyle, searchText }) {
   const [isAddingCard, setIsAddingCard] = useState(false);
   const [priority, setPriority] = useState("medium");
   const [isDragOver, setIsDragOver] = useState(false);
@@ -60,7 +60,8 @@ function ListColumn({ list, handleDrop, handleDragStart, changeStatus, deleteCar
         {list.cards.map(card => (
           <CardItem key={card._id} card={card} listId={list._id}
             handleDragStart={handleDragStart} changeStatus={changeStatus} deleteCard={deleteCard}
-            getCardColor={getCardColor} getCircleStyle={getCircleStyle} />
+            getCardColor={getCardColor} getCircleStyle={getCircleStyle}
+            searchText={searchText} />
         ))}
         {list.cards.length === 0 && !isAddingCard && (
           <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", border: "1px dashed var(--border)", borderRadius: "6px", minHeight: "60px" }}>

@@ -29,6 +29,15 @@ function BoardNavbar({ searchText, setSearchText, activities, showActivities, se
           )}
         </button>
 
+        <button
+          onClick={() => document.body.classList.toggle("light-mode")}
+          title="Toggle light/dark mode"
+          style={{ background: "var(--bg-elevated)", border: "1px solid var(--border)", borderRadius: "6px", padding: "6px 14px", fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", letterSpacing: "0.5px" }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--border-bright)"; e.currentTarget.style.color = "var(--text-primary)"; }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = "var(--border)"; e.currentTarget.style.color = "var(--text-secondary)"; }}>
+          ◑ THEME
+        </button>
+
         <button onClick={() => navigate("/dashboard")}
           style={{ background: "var(--bg-elevated)", border: "1px solid var(--border)", borderRadius: "6px", padding: "6px 14px", fontSize: "12px", fontWeight: 600, color: "var(--text-secondary)", letterSpacing: "0.5px", display: "flex", alignItems: "center", gap: "6px" }}
           onMouseEnter={e => { e.currentTarget.style.borderColor = "var(--border-bright)"; e.currentTarget.style.color = "var(--text-primary)"; }}

@@ -17,8 +17,8 @@ export const createCard = async (req, res, next) => {
       boardId,
       assignedTo,
       status,
+      priority,
     } = req.body;
-
     // validation
     if (!title || !boardId) {
       return res.status(400).json({
@@ -39,15 +39,16 @@ if (listId) {
 
     // create card
     const card = await CardModel.create({
-      title,
-      description,
-      listId,
-      boardId,
-      assignedTo,
-      status,
-      order: Date.now(),
-    });
-
+        title,
+        description,
+        listId,
+        boardId,
+        assignedTo,
+        status,
+        priority,
+        order: Date.now(),
+      });
+  
     console.log("Card created:", card._id);
 
     // activity
