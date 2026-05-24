@@ -1,5 +1,5 @@
 import CardModel from "../models/cardModel.js";
-import ListModel from "../models/listModel.js";
+import ListModel from "../models/ListModel.js";
 
 import { createActivity } from "./ActivityController.js";
 import { getIO } from "../sockets/socket.js";
