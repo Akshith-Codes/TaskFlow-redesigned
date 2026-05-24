@@ -11,19 +11,17 @@ function Register() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
-  async function handleRegister(e) {
-    e.preventDefault();
-    if (!name || !email || !password) { setError("All fields required"); return; }
-    setLoading(true); setError("");
-    try {
-      await API.post("/auth/register", { name, email, password });
-      localStorage.setItem("verifyEmail", email);
-      navigate("/verify");
-    } catch (err) {
-      setError(err.response?.data?.message || "Registration failed");
-    } finally { setLoading(false); }
-  }
-
+async function handleRegister(e) {
+  e.preventDefault();
+  if (!name || !email || !password) { setError("All fields required"); return; }
+  setLoading(true); setError("");
+  try {
+    await API.post("/auth/register", { name, email, password });
+    navigate("/login");
+  } catch (err) {
+    setError(err.response?.data?.message || "Registration failed");
+  } finally { setLoading(false); }
+}
   return (
     <div style={{ minHeight: "100vh", background: "var(--bg-base)", display: "flex", alignItems: "center", justifyContent: "center", padding: "20px" }}>
       <div style={{ position: "fixed", inset: 0, backgroundImage: "linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px)", backgroundSize: "40px 40px", opacity: 0.4, pointerEvents: "none" }} />
