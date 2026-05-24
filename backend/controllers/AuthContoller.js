@@ -180,7 +180,7 @@ export const verifyEmail = async (req, res, next) => {
 export const loginUser = async (req, res, next) => {
   try {
     console.log("Login API called");
-
+    console.log("Login body:", req.body); // add this
     const { email, password } = req.body;
 
     // validation
